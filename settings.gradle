@@ -1,0 +1,4 @@
+include ':BackgroundCommSDK',
+        ':app'
+
+project(':BackgroundCommSDK').projectDir = file('../BackgroundCommSDK_Android')

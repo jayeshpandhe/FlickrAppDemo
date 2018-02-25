@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">FlickrDemoApp</string>
+    <string name="load_more">Load More</string>
+    <string name="load_prev_page">Load prev page</string>
+    <string name="generic_error_message">Something went wrong, please try again later</string>
+    <string name="network_not_available">Network not available</string>
+    <string name="flickr_photo_url">https://farm%s.staticflickr.com/%s/%s.jpg</string>
+</resources>
