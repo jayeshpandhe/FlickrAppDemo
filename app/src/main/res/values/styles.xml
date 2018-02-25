@@ -8,9 +8,34 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <style name="PhotoGridLayout">
         <item name="android:drawSelectorOnTop">true</item>
         <item name="android:listSelector">@drawable/photogrid_list_selector</item>
+    </style>
+
+    <style name="FlickrPhotoInfoLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+    <style name="FlickrPhotoTitleTextViewStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="FlickrPhotoInfoTextViewStyle" parent="FlickrPhotoTitleTextViewStyle">
+        <item name="android:layout_weight">2</item>
     </style>
 
 </resources>

@@ -5,4 +5,17 @@
     <string name="generic_error_message">Something went wrong, please try again later</string>
     <string name="network_not_available">Network not available</string>
     <string name="flickr_photo_url">https://farm%s.staticflickr.com/%s/%s.jpg</string>
+
+    <!-- flickr_photo_details_fragment_layout start -->
+    <string name="id">Id</string>
+    <string name="owner">Owner</string>
+    <string name="title">Title</string>
+    <string name="server">Server</string>
+    <string name="url">URL</string>
+    <!-- flickr_photo_details_fragment_layout end -->
+
+    <!-- Settings start -->
+    <string name="clear_mem_cache">Clear Mem Cache</string>
+    <string name="clear_disk_cache">Clear Disk Cache</string>
+    <!-- Settings end -->
 </resources>

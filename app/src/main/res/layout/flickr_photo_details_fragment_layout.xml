@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <WebView
+            android:id="@+id/flickr_photo_web_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <LinearLayout style="@style/FlickrPhotoInfoLayoutStyle">
+
+            <TextView
+                style="@style/FlickrPhotoTitleTextViewStyle"
+                android:text="@string/id" />
+
+            <TextView
+                android:id="@+id/photo_id"
+                style="@style/FlickrPhotoInfoTextViewStyle" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/FlickrPhotoInfoLayoutStyle">
+
+            <TextView
+                style="@style/FlickrPhotoTitleTextViewStyle"
+                android:text="@string/title" />
+
+            <TextView
+                android:id="@+id/photo_title"
+                style="@style/FlickrPhotoInfoTextViewStyle" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/FlickrPhotoInfoLayoutStyle">
+
+            <TextView
+                style="@style/FlickrPhotoTitleTextViewStyle"
+                android:text="@string/owner" />
+
+            <TextView
+                android:id="@+id/photo_owner"
+                style="@style/FlickrPhotoInfoTextViewStyle" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/FlickrPhotoInfoLayoutStyle">
+
+            <TextView
+                style="@style/FlickrPhotoTitleTextViewStyle"
+                android:text="@string/server" />
+
+            <TextView
+                android:id="@+id/photo_server"
+                style="@style/FlickrPhotoInfoTextViewStyle" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/FlickrPhotoInfoLayoutStyle">
+
+            <TextView
+                style="@style/FlickrPhotoTitleTextViewStyle"
+                android:text="@string/url" />
+
+            <TextView
+                android:id="@+id/photo_url"
+                style="@style/FlickrPhotoInfoTextViewStyle"
+                android:autoLink="web" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

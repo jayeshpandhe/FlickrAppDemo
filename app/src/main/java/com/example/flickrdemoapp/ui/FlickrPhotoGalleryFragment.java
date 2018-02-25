@@ -1,16 +1,20 @@
 package com.example.flickrdemoapp.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 
+import com.bgcomm.BackgroundWorker;
 import com.bgcomm.models.Response;
 import com.bgcomm.ui.DialogicProgressBackgroundCommFragment;
 import com.bgcomm.utils.NetworkUtils;
@@ -22,7 +26,7 @@ import com.web.flickr.models.response.GetRecentPhotosResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FlickrPhotoGalleryFragment extends DialogicProgressBackgroundCommFragment implements View.OnClickListener, AbsListView.OnScrollListener {
+public class FlickrPhotoGalleryFragment extends DialogicProgressBackgroundCommFragment implements View.OnClickListener, AbsListView.OnScrollListener, AdapterView.OnItemClickListener {
     private static String TAG = FlickrPhotoGalleryFragment.class.getSimpleName();
     private final int GET_RECENT_IMAGES_REQUEST_ID = 1;
     private int pageToLoad = 1;
@@ -33,6 +37,13 @@ public class FlickrPhotoGalleryFragment extends DialogicProgressBackgroundCommFr
     private PhotoAdapter mPhotoAdapter;
     private List<FlickrPhotoInfo> mPhotoInfoList = new ArrayList<>();
     private PhotoFetcher mPhotoFetcher;
+    public static final String FLICKER_PHOTO_DETAILS = "FLICKER_PHOTO_DETAILS";
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Nullable
     @Override
@@ -51,18 +62,16 @@ public class FlickrPhotoGalleryFragment extends DialogicProgressBackgroundCommFr
     private void getRecentPhotosFromFlicker() {
         if (!NetworkUtils.isNetworkPresent(getActivity())) {
             showAlertDialog(getString(R.string.network_not_available), null);
-        } else if (pageToLoad == 1) {
-            execute(GET_RECENT_IMAGES_REQUEST_ID);
-        } else if (pageToLoad < totalPages) {
-            pageToLoad++;
+        } else if (pageToLoad == 1 || pageToLoad <= totalPages) {
             execute(GET_RECENT_IMAGES_REQUEST_ID);
         } else {
-            Log.e(TAG, "We have already reached last page");
+            Log.d(TAG, "We have already reached last page");
         }
     }
 
     private void attachListeners() {
         mFlickrPhotoGridView.setOnScrollListener(this);
+        mFlickrPhotoGridView.setOnItemClickListener(this);
         mLoadMoreButton.setOnClickListener(this);
     }
 
@@ -98,6 +107,7 @@ public class FlickrPhotoGalleryFragment extends DialogicProgressBackgroundCommFr
         GetRecentPhotosResponse getRecentPhotosResponse = (GetRecentPhotosResponse) response;
         currentPage = getRecentPhotosResponse.getPage();
         totalPages = getRecentPhotosResponse.getPages();
+        pageToLoad++;
         Log.d(TAG, "Current page: " + currentPage);
         Log.d(TAG, "Total pages: " + totalPages);
         List<FlickrPhotoInfo> photoInfoList = getRecentPhotosResponse.getPhotosInfo();
@@ -165,7 +175,45 @@ public class FlickrPhotoGalleryFragment extends DialogicProgressBackgroundCommFr
     @Override
     public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
         boolean reachedEnd = (firstVisibleItem + visibleItemCount >= totalItemCount);
-        Log.d(TAG, "Reached end");
         mLoadMoreButton.setVisibility(reachedEnd ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        FlickrPhotoInfo flickrPhotoInfo = mPhotoInfoList.get(i);
+        Intent intent = new Intent(getActivity(), FlickrPhotoDetailsActivity.class);
+        intent.putExtra(FLICKER_PHOTO_DETAILS, flickrPhotoInfo);
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.clear_disk_cache_menu:
+                clearDiskCache();
+                return true;
+
+            case R.id.clear_mem_cache_menu:
+                clearMemCache();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void clearDiskCache() {
+        BackgroundWorker.submitRunnable(new Runnable() {
+            @Override
+            public void run() {
+                Log.d(TAG, "Clear disk cache");
+                PhotoDiskCache.getInstance(getActivity()).clearCache(getActivity());
+            }
+        });
+    }
+
+    private void clearMemCache() {
+        Log.d(TAG, "Clear mem cache");
+        PhotoMemCache.clearCache();
     }
 }
