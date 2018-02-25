@@ -11,6 +11,7 @@ import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.example.flickrdemoapp.R;
+import com.web.FlickrURLBuilder;
 import com.web.flickr.models.response.FlickrPhotoInfo;
 
 public class FlickrPhotoDetailsFragment extends Fragment {
@@ -41,10 +42,6 @@ public class FlickrPhotoDetailsFragment extends Fragment {
     }
 
     private String constructPhotoURL(FlickrPhotoInfo flickrPhotoInfo) {
-        String farm = "" + flickrPhotoInfo.getFarm();
-        String server = flickrPhotoInfo.getServer();
-        String id_secret = flickrPhotoInfo.getId() + "_" + flickrPhotoInfo.getSecret();
-        // URL format: https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
-        return getString(R.string.flickr_photo_url, farm, server, id_secret);
+        return FlickrURLBuilder.buildPhotoURL(flickrPhotoInfo);
     }
 }

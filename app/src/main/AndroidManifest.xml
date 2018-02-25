@@ -11,6 +11,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.MainActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,7 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.FlickrPhotoDetailsActivity" />
+        <activity
+            android:name=".ui.FlickrPhotoDetailsActivity"
+            android:configChanges="orientation|keyboardHidden" />
     </application>
 
 </manifest>

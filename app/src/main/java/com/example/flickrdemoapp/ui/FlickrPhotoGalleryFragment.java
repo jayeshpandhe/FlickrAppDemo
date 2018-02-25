@@ -13,6 +13,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.bgcomm.BackgroundWorker;
 import com.bgcomm.models.Response;
@@ -69,6 +70,12 @@ public class FlickrPhotoGalleryFragment extends DialogicProgressBackgroundCommFr
         }
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        mPhotoFetcher.setPauseWork(false);
+    }
+
     private void attachListeners() {
         mFlickrPhotoGridView.setOnScrollListener(this);
         mFlickrPhotoGridView.setOnItemClickListener(this);
@@ -115,6 +122,7 @@ public class FlickrPhotoGalleryFragment extends DialogicProgressBackgroundCommFr
     }
 
     private void updateUI(List<FlickrPhotoInfo> photoInfoList) {
+        Toast.makeText(getActivity(), getString(R.string.page_loaded_msg, currentPage, totalPages), Toast.LENGTH_LONG).show();
         if (photoInfoList != null && photoInfoList.size() > 0) {
             mPhotoInfoList.addAll(photoInfoList);
             mPhotoAdapter.notifyDataSetChanged();

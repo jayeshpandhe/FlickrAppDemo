@@ -5,17 +5,16 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 
 import java.lang.ref.WeakReference;
-import java.util.concurrent.Future;
 
 public class AsyncDrawable extends BitmapDrawable {
-    private final WeakReference<Future> mPhotoFetcherTaskWeakReference;
+    private final WeakReference<PhotoFetcherAsyncTask> mPhotoFetcherTaskWeakReference;
 
-    public AsyncDrawable(Resources res, Bitmap bitmap, Future photoFetcherTask) {
+    public AsyncDrawable(Resources res, Bitmap bitmap, PhotoFetcherAsyncTask photoFetcherAsyncTask) {
         super(res, bitmap);
-        mPhotoFetcherTaskWeakReference = new WeakReference<>(photoFetcherTask);
+        mPhotoFetcherTaskWeakReference = new WeakReference<>(photoFetcherAsyncTask);
     }
 
-    public Future getPhotoFetcherTask() {
+    public PhotoFetcherAsyncTask getPhotoFetcherTask() {
         return mPhotoFetcherTaskWeakReference.get();
     }
 }
