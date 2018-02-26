@@ -66,7 +66,7 @@ public class PhotoFetcherAsyncTask extends AsyncTask<Void, Void, BitmapDrawable>
     @Override
     protected void onPostExecute(BitmapDrawable bitmapDrawable) {
         super.onPostExecute(bitmapDrawable);
-        if(!isCancelled()) {
+        if(!isCancelled() && getAttachedImageView() != null) {
             mOnPhotoFetchedListener.onBitmapDrawableFetchedForView(mViewReference.get(), bitmapDrawable);
         }
     }
@@ -79,8 +79,12 @@ public class PhotoFetcherAsyncTask extends AsyncTask<Void, Void, BitmapDrawable>
     }
 
     private ImageView getAttachedImageView() {
+        ImageView imageView = null;
         View v = mViewReference.get();
-        return v.findViewById(R.id.flickr_photo_image_view);
+        if(v != null) {
+            imageView = v.findViewById(R.id.flickr_photo_image_view);
+        }
+        return imageView;
     }
 
     private Bitmap downloadBitmap(String photoURL) {

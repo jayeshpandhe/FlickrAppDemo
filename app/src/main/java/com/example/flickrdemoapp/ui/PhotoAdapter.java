@@ -68,13 +68,27 @@ public class PhotoAdapter extends BaseAdapter implements OnPhotoFetchedListener 
     }
 
     private void setImageBitmap(final View view, final BitmapDrawable bitmapDrawable) {
+        if(view != null) {
+            updateView(view, bitmapDrawable);
+        }
+    }
+
+    private void updateView(View view, BitmapDrawable bitmapDrawable) {
         ImageView imageView = view.findViewById(R.id.flickr_photo_image_view);
+        if(imageView != null) {
+            updateImageView(imageView, bitmapDrawable);
+        }
+        ProgressBar progressBar = view.findViewById(R.id.progress_bar);
+        if(progressBar != null) {
+            progressBar.setVisibility((bitmapDrawable != null && bitmapDrawable instanceof AsyncDrawable) ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    private void updateImageView(ImageView imageView, BitmapDrawable bitmapDrawable) {
         if(bitmapDrawable != null && bitmapDrawable.getBitmap() != null) {
             imageView.setImageDrawable(bitmapDrawable);
         } else {
             imageView.setImageDrawable(mErrorBitmapDrawable);
         }
-        ProgressBar progressBar = view.findViewById(R.id.progress_bar);
-        progressBar.setVisibility(bitmapDrawable instanceof AsyncDrawable ? View.VISIBLE : View.GONE);
     }
 }
