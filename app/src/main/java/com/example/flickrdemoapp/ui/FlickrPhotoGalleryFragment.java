@@ -39,6 +39,8 @@ public class FlickrPhotoGalleryFragment extends DialogicProgressBackgroundCommFr
     private List<FlickrPhotoInfo> mPhotoInfoList = new ArrayList<>();
     private PhotoFetcher mPhotoFetcher;
     public static final String FLICKER_PHOTO_DETAILS = "FLICKER_PHOTO_DETAILS";
+    private boolean startAutoScroll;
+    private boolean scrollBarAtStart;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +76,7 @@ public class FlickrPhotoGalleryFragment extends DialogicProgressBackgroundCommFr
     public void onPause() {
         super.onPause();
         mPhotoFetcher.setPauseWork(false);
+        startAutoScroll = false;
     }
 
     private void attachListeners() {
@@ -178,14 +181,34 @@ public class FlickrPhotoGalleryFragment extends DialogicProgressBackgroundCommFr
 
     private void onGridViewScrollFinished() {
         mPhotoFetcher.setPauseWork(false);
+        startAutoScroll = false;
     }
 
     @Override
     public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        boolean reachedEnd = (firstVisibleItem + visibleItemCount >= totalItemCount);
-        mLoadMoreButton.setVisibility(reachedEnd ? View.VISIBLE : View.GONE);
+        boolean scrollBarAtEnd = (firstVisibleItem + visibleItemCount >= totalItemCount);
+        scrollBarAtStart = (firstVisibleItem == 0);
+        mLoadMoreButton.setVisibility(scrollBarAtEnd ? View.VISIBLE : View.GONE);
+        if(scrollBarAtStart) {
+            onScrollBarReachedStart();
+        }
+        if(scrollBarAtEnd) {
+            onScrollBarReachedEnd();
+        }
     }
 
+    private void onScrollBarReachedStart() {
+        if(startAutoScroll) {
+            mFlickrPhotoGridView.smoothScrollByOffset(mPhotoAdapter.getCount() - 1);
+        }
+    }
+
+    private void onScrollBarReachedEnd() {
+        if(startAutoScroll) {
+            mFlickrPhotoGridView.smoothScrollToPosition(0);
+        }
+    }
+    
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         FlickrPhotoInfo flickrPhotoInfo = mPhotoInfoList.get(i);
@@ -205,8 +228,21 @@ public class FlickrPhotoGalleryFragment extends DialogicProgressBackgroundCommFr
                 clearMemCache();
                 return true;
 
+            case R.id.start_auto_scroll_menu:
+                startAutoScroll();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void startAutoScroll() {
+        startAutoScroll = true;
+        if(scrollBarAtStart) {
+            mFlickrPhotoGridView.smoothScrollToPosition(mPhotoAdapter.getCount() - 1);
+        } else {
+            mFlickrPhotoGridView.smoothScrollToPosition(0);
         }
     }
 

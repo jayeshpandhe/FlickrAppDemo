@@ -2,7 +2,6 @@ package com.web;
 
 import android.net.Uri;
 
-import com.example.flickrdemoapp.R;
 import com.web.flickr.FlickrAPIConstants;
 import com.web.flickr.models.request.GetRecentPhotosRequest;
 import com.web.flickr.models.response.FlickrPhotoInfo;

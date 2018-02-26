@@ -72,8 +72,10 @@ public class PhotoFetcherAsyncTask extends AsyncTask<Void, Void, BitmapDrawable>
     }
 
     private void cacheBitmap(String imageId, BitmapDrawable bitmapDrawable) {
-        PhotoMemCache.put(imageId, bitmapDrawable);
-        mPhotoDiskCache.put(imageId, bitmapDrawable);
+        if(!isCancelled()) {
+            PhotoMemCache.put(imageId, bitmapDrawable);
+            mPhotoDiskCache.put(imageId, bitmapDrawable);
+        }
     }
 
     private ImageView getAttachedImageView() {
@@ -92,7 +94,7 @@ public class PhotoFetcherAsyncTask extends AsyncTask<Void, Void, BitmapDrawable>
             if(!isCancelled()) {
                 bitmap = BitmapFactory.decodeStream(in);
             }
-        } catch (final IOException e) {
+        } catch (final Exception e) {
             Log.e(TAG, "Error in downloadBitmap - " + e);
         } finally {
             if (urlConnection != null) {

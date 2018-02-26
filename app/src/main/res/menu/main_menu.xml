@@ -13,4 +13,9 @@
         android:id="@+id/clear_disk_cache_menu"
         android:title="@string/clear_disk_cache"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/start_auto_scroll_menu"
+        android:title="@string/start_auto_scroll"
+        app:showAsAction="never" />
 </menu>

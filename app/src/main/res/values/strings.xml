@@ -19,5 +19,6 @@
     <!-- Settings start -->
     <string name="clear_mem_cache">Clear Mem Cache</string>
     <string name="clear_disk_cache">Clear Disk Cache</string>
+    <string name="start_auto_scroll">Start Auto Scroll</string>
     <!-- Settings end -->
 </resources>
