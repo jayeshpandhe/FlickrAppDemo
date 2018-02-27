@@ -19,6 +19,10 @@ import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * AsyncTask to fetch bitmap. First it checks disk cache to fetch bitmap.
+ * If bitmap is not cached then it downloads it from the server and updates disk and mem cache.
+ */
 public class PhotoFetcherAsyncTask extends AsyncTask<Void, Void, BitmapDrawable> {
     private static final String TAG = PhotoFetcherAsyncTask.class.getSimpleName();
     private PhotoFetcher mPhotoFetcher;

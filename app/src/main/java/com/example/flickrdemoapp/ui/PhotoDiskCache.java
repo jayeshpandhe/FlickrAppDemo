@@ -17,6 +17,9 @@ import java.io.OutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * This class is a wrapper around DiskCache. It caches downloaded bitmap in the device cache memory.
+ */
 public class PhotoDiskCache {
     private static final String TAG = PhotoDiskCache.class.getSimpleName();
     private static final Object DISK_CACHE_LOCK = new Object();

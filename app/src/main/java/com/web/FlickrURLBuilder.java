@@ -9,6 +9,9 @@ import com.web.flickr.models.response.FlickrPhotoInfo;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+/**
+ * Builder class to build Flickr API URLs
+ */
 public class FlickrURLBuilder {
 
     public static String buildRecentPhotosURL(int pageToLoad) {

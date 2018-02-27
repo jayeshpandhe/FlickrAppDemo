@@ -14,6 +14,9 @@ import com.example.flickrdemoapp.R;
 import com.web.FlickrURLBuilder;
 import com.web.flickr.models.response.FlickrPhotoInfo;
 
+/**
+ * This class shows details about Flickr photo
+ */
 public class FlickrPhotoDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.flickr_photo_details_fragment_layout, container, false);

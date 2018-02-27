@@ -7,6 +7,9 @@ import com.web.NetworkHandler;
 import com.web.flickr.models.response.GetRecentPhotosResponse;
 import com.web.flickr.parsers.GetRecentPhotosResponseParser;
 
+/**
+ * This class provides client side implementation of Flickr web services
+ */
 public class FlickrWebServicesImpl {
     public GetRecentPhotosResponse executeGetRecentPhotosRequest(int page) throws Exception {
         GetRecentPhotosResponse getRecentPhotosResponse = null;

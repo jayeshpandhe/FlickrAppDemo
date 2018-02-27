@@ -6,6 +6,10 @@ import android.graphics.drawable.BitmapDrawable;
 
 import java.lang.ref.WeakReference;
 
+/**
+ * This class is a wrapper around BitmapDrawable. It maintains reference of task associated
+ * with the ImageView.
+ */
 public class AsyncDrawable extends BitmapDrawable {
     private final WeakReference<PhotoFetcherAsyncTask> mPhotoFetcherTaskWeakReference;
 

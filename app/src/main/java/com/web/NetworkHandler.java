@@ -10,6 +10,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * This class manages network transactions.
+ */
 public class NetworkHandler {
     private static String TAG = NetworkHandler.class.getSimpleName();
 

@@ -4,8 +4,10 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.util.LruCache;
 import android.text.TextUtils;
-import android.util.Log;
 
+/**
+ * This class is a wrapper around LruCache. It caches downloaded bitmap in the memory.
+ */
 public class PhotoMemCache {
     private static final String TAG = PhotoMemCache.class.getSimpleName();
     private static PhotoMemCache mInstance;

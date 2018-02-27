@@ -7,6 +7,9 @@ import android.view.Menu;
 
 import com.example.flickrdemoapp.R;
 
+/**
+ * Main activity of application
+ */
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

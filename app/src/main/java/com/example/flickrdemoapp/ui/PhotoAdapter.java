@@ -17,6 +17,9 @@ import com.web.flickr.models.response.FlickrPhotoInfo;
 
 import java.util.List;
 
+/**
+ * Adapter class provides binding between GridView and associated data model list
+ */
 public class PhotoAdapter extends BaseAdapter implements OnPhotoFetchedListener {
     private static final int CELL_WIDTH = 500, CELL_HEIGHT = 500;
     private final List<FlickrPhotoInfo> mPhotoInfoList;
@@ -68,6 +71,7 @@ public class PhotoAdapter extends BaseAdapter implements OnPhotoFetchedListener 
     }
 
     private void setImageBitmap(final View view, final BitmapDrawable bitmapDrawable) {
+        // View can be null if Bitmap is received after activity is finished or stopped.
         if(view != null) {
             updateView(view, bitmapDrawable);
         }

@@ -27,6 +27,9 @@ import com.web.flickr.models.response.GetRecentPhotosResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class handles Flickr photo gallery UI.
+ */
 public class FlickrPhotoGalleryFragment extends DialogicProgressBackgroundCommFragment implements View.OnClickListener, AbsListView.OnScrollListener, AdapterView.OnItemClickListener {
     private static String TAG = FlickrPhotoGalleryFragment.class.getSimpleName();
     private final int GET_RECENT_IMAGES_REQUEST_ID = 1;
@@ -246,6 +249,9 @@ public class FlickrPhotoGalleryFragment extends DialogicProgressBackgroundCommFr
         }
     }
 
+    /*
+     * Clears disk cache in a background thread
+     */
     private void clearDiskCache() {
         BackgroundWorker.submitRunnable(new Runnable() {
             @Override

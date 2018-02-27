@@ -16,6 +16,10 @@ import com.web.flickr.models.response.FlickrPhotoInfo;
 
 import java.util.concurrent.RejectedExecutionException;
 
+/**
+ * This class manages bitmap fetching. It acts as a bridge between grid view adapter
+ * and AsyncTask which fetches bitmap.
+ */
 public class PhotoFetcher {
     private static final String TAG = PhotoFetcher.class.getSimpleName();
     private final Object mPauseWorkLock = new Object();
@@ -32,14 +36,17 @@ public class PhotoFetcher {
     }
 
     public void fetchImage(FlickrPhotoInfo flickrPhotoInfo, View view, OnPhotoFetchedListener onPhotoFetchedListener) {
+        // Check is there any previous task associated with this ImageView, if present then cancel it.
         ImageView imageView = view.findViewById(R.id.flickr_photo_image_view);
         if(isPreviousPhotoFetcherTaskInProgress(imageView)) {
             cancelPreviousPhotoFetcherTask(imageView);
         }
 
+        // Check whether Bitmap is cached in the LRU cache
         String imageId = flickrPhotoInfo.getId();
         BitmapDrawable bitmapDrawable = PhotoMemCache.get(imageId);
         if(bitmapDrawable == null) {
+            // Bitmap is not cached, so before starting AsyncTask, update default bitmap in the associated ImageView
             PhotoFetcherAsyncTask photoFetcherAsyncTask = new PhotoFetcherAsyncTask(this, flickrPhotoInfo, view, onPhotoFetchedListener);
             bitmapDrawable = new AsyncDrawable(mContext.getResources(), mDefaultBitmap, photoFetcherAsyncTask);
             executeTask(photoFetcherAsyncTask);
@@ -107,6 +114,10 @@ public class PhotoFetcher {
         return pauseWork;
     }
 
+    /**
+     * Acquires/releases lock to pause/resume background work
+     * @param pauseWork
+     */
     public void setPauseWork(boolean pauseWork) {
         synchronized (mPauseWorkLock) {
             this.pauseWork = pauseWork;
